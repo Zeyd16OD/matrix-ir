@@ -17,7 +17,7 @@
                 <h1>Matrix<span>IR</span></h1>
             </div>
             <div class="theme-toggle">
-                <input type="checkbox" id="theme-switch">
+                <input type="checkbox" id="theme-switch" title="Toggle theme">
                 <label for="theme-switch">
                     <i class="fas fa-sun"></i>
                     <i class="fas fa-moon"></i>
@@ -36,31 +36,28 @@
 
                 <div id="text-input-container" class="document-container">
                     <div class="document-inputs">
-                        <div class="document-input">
-                            <div class="document-header">
+                        <div class="document-input">                            <div class="document-header">
                                 <input type="text" class="document-title" value="Doc1" placeholder="Document Title">
-                                <button class="remove-document"><i class="fas fa-times"></i></button>
+                                <button class="remove-document" title="Remove document"><i class="fas fa-times"></i></button>
                             </div>
                             <textarea class="document-text" placeholder="Enter document text here...">ESST Higher School of Sciences and Technologies of Algiers aims to constitute a center of reference and excellence in higher education</textarea>
                         </div>
-                        <div class="document-input">
-                            <div class="document-header">
+                        <div class="document-input">                            <div class="document-header">
                                 <input type="text" class="document-title" value="Doc2" placeholder="Document Title">
-                                <button class="remove-document"><i class="fas fa-times"></i></button>
+                                <button class="remove-document" title="Remove document"><i class="fas fa-times"></i></button>
                             </div>
                             <textarea class="document-text" placeholder="Enter document text here...">Students at ESST are very nice and polite, but they talk a lot during the lectures</textarea>
                         </div>
-                        <div class="document-input">
-                            <div class="document-header">
+                        <div class="document-input">                            <div class="document-header">
                                 <input type="text" class="document-title" value="Doc3" placeholder="Document Title">
-                                <button class="remove-document"><i class="fas fa-times"></i></button>
+                                <button class="remove-document" title="Remove document"><i class="fas fa-times"></i></button>
                             </div>
                             <textarea class="document-text" placeholder="Enter document text here...">USTHB Houari Boumediene University of Science and Technology is an Algerian public university</textarea>
                         </div>
                         <div class="document-input">
                             <div class="document-header">
                                 <input type="text" class="document-title" value="Doc4" placeholder="Document Title">
-                                <button class="remove-document"><i class="fas fa-times"></i></button>
+                                <button class="remove-document" title="Remove document"><i class="fas fa-times"></i></button>
                             </div>
                             <textarea class="document-text" placeholder="Enter document text here...">Are students at USTHB nicer than students at ESST</textarea>
                         </div>
@@ -73,8 +70,8 @@
                 <div id="file-upload-container" class="document-container hidden">
                     <div class="dropzone">
                         <i class="fas fa-file-upload"></i>
-                        <p>Drag and drop files here, or <span>browse</span></p>
-                        <input type="file" id="file-upload" multiple accept=".txt">
+                        <p>Drag and drop files here, or <label for="file-upload" class="browse-files-label">browse</label></p>
+                        <input type="file" id="file-upload" multiple accept=".txt" title="Upload files">
                     </div>
                     <div id="uploaded-files-list"></div>
                 </div>
