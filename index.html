@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix IR - Information Retrieval Tool</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- D3.js for visualizations -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-table-cells"></i>
+                <h1>Matrix<span>IR</span></h1>
+            </div>
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <label for="theme-switch">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </header>
+
+        <main>
+            <section class="document-input-section">
+                <h2>Document Input</h2>
+                <div class="input-options">
+                    <button id="paste-text-btn" class="active">Paste Text</button>
+                    <button id="upload-files-btn">Upload Files</button>
+                </div>
+
+                <div id="text-input-container" class="document-container">
+                    <div class="document-inputs">
+                        <div class="document-input">
+                            <div class="document-header">
+                                <input type="text" class="document-title" value="Doc1" placeholder="Document Title">
+                                <button class="remove-document"><i class="fas fa-times"></i></button>
+                            </div>
+                            <textarea class="document-text" placeholder="Enter document text here...">ESST Higher School of Sciences and Technologies of Algiers aims to constitute a center of reference and excellence in higher education</textarea>
+                        </div>
+                        <div class="document-input">
+                            <div class="document-header">
+                                <input type="text" class="document-title" value="Doc2" placeholder="Document Title">
+                                <button class="remove-document"><i class="fas fa-times"></i></button>
+                            </div>
+                            <textarea class="document-text" placeholder="Enter document text here...">Students at ESST are very nice and polite, but they talk a lot during the lectures</textarea>
+                        </div>
+                        <div class="document-input">
+                            <div class="document-header">
+                                <input type="text" class="document-title" value="Doc3" placeholder="Document Title">
+                                <button class="remove-document"><i class="fas fa-times"></i></button>
+                            </div>
+                            <textarea class="document-text" placeholder="Enter document text here...">USTHB Houari Boumediene University of Science and Technology is an Algerian public university</textarea>
+                        </div>
+                        <div class="document-input">
+                            <div class="document-header">
+                                <input type="text" class="document-title" value="Doc4" placeholder="Document Title">
+                                <button class="remove-document"><i class="fas fa-times"></i></button>
+                            </div>
+                            <textarea class="document-text" placeholder="Enter document text here...">Are students at USTHB nicer than students at ESST</textarea>
+                        </div>
+                    </div>
+                    <button id="add-document" class="add-document-btn">
+                        <i class="fas fa-plus"></i> Add Document
+                    </button>
+                </div>
+
+                <div id="file-upload-container" class="document-container hidden">
+                    <div class="dropzone">
+                        <i class="fas fa-file-upload"></i>
+                        <p>Drag and drop files here, or <span>browse</span></p>
+                        <input type="file" id="file-upload" multiple accept=".txt">
+                    </div>
+                    <div id="uploaded-files-list"></div>
+                </div>
+            </section>
+
+            <section class="preprocessing-section">
+                <h2>Text Preprocessing Options</h2>
+                <div class="preprocessing-options">
+                    <div class="option">
+                        <input type="checkbox" id="remove-stopwords" checked>
+                        <label for="remove-stopwords">Remove Stopwords</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="stemming">
+                        <label for="stemming">Apply Stemming</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" id="case-sensitive">
+                        <label for="case-sensitive">Case Sensitive</label>
+                    </div>
+                    <div class="option custom-exclude">
+                        <label for="exclude-words">Exclude Custom Words:</label>
+                        <input type="text" id="exclude-words" placeholder="Word1, Word2, ...">
+                    </div>
+                </div>
+                <button id="generate-matrices" class="generate-btn">
+                    <i class="fas fa-cogs"></i> Generate Matrices
+                </button>
+            </section>
+
+            <section id="results-section" class="results-section hidden">
+                <div class="loading-animation hidden">
+                    <div class="spinner"></div>
+                    <p>Generating matrices...</p>
+                </div>
+                
+                <div class="results-content">
+                    <h2>Results</h2>
+                    
+                    <div class="terms-container">
+                        <h3>Processed Terms</h3>
+                        <div class="search-box">
+                            <input type="text" id="search-terms" placeholder="Search terms...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="terms-list" id="terms-list"></div>
+                    </div>
+
+                    <div class="matrices-container">
+                        <div class="matrix-tabs">
+                            <button class="matrix-tab active" data-matrix="incidence">Incidence Matrix</button>
+                            <button class="matrix-tab" data-matrix="count">Count Matrix</button>
+                            <button class="matrix-tab" data-matrix="tfidf">TF-IDF Matrix</button>
+                        </div>
+                        
+                        <div class="matrix-controls">
+                            <button id="sort-terms-btn">
+                                <i class="fas fa-sort"></i> Sort by Frequency
+                            </button>
+                            <button id="highlight-values-btn">
+                                <i class="fas fa-highlighter"></i> Highlight Values
+                            </button>
+                            <button id="download-matrix-btn">
+                                <i class="fas fa-download"></i> Download CSV
+                            </button>
+                        </div>
+
+                        <div class="matrix-visualization">
+                            <div id="incidence-matrix" class="matrix-display active"></div>
+                            <div id="count-matrix" class="matrix-display"></div>
+                            <div id="tfidf-matrix" class="matrix-display"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2025 MatrixIR - Information Retrieval Matrix Visualization Tool</p>
+        </footer>
+    </div>    <script src="js/favicon.js"></script>
+    <script src="js/stopwords.js"></script>
+    <script src="js/stemmer.js"></script>
+    <script src="js/matrix.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
