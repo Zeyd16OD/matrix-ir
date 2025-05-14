@@ -6,6 +6,8 @@ A modern web application for information retrieval matrix visualization. Process
 - **Term-Document Count Matrix**
 - **Term-Document Weight Matrix (TF-IDF)**
 
+🌐 **[Live Demo](https://matrix-ir.vercel.app/)**
+
 ## Features
 
 - 🎨 Modern UI with dark/light mode
